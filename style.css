@@ -1,0 +1,126 @@
+body {
+  padding: 20px;
+  font-family: Helvetica;
+}
+.background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    background-image: url('https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-40105.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+.bubble {
+  background: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  transition: all 0.2s;
+  margin: 0 auto 20px;
+  width: 80%;
+  max-width: 400px;
+  min-width: 160px;
+}
+button {
+  background: #0084ff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 14px;
+  font-size: 15px;
+  color: #fff;
+  cursor: pointer;
+}
+button.delete {
+  border: 1px solid red;
+  background: none;
+  padding: 7px 13px;
+  color: red;
+}
+button.delete.confirm {
+  padding: 8px 14px;
+  border: none;
+  background: red;
+  color: white;
+}
+.textarea {
+  width: auto;
+  padding: 0 20px;
+  border: none;
+  font-family: Monaco;
+  font-size: 9.9pt;
+  resize: none;
+  line-height: 1.5;
+  display: inline-block;
+}
+.textarea[contenteditable]:focus {
+  outline: 0px solid transparent;
+}
+.textarea div {
+    font-size: 9.9pt;
+    line-height: 1.7;
+}
+.textarea, .textarea div:first-child:last-child {
+    font-size: 16pt;
+}
+
+.textarea .h1, .textarea .h2 {
+    font-weight: 600;
+}
+.textarea .h1 {
+    margin-left: -16px;
+}
+.textarea .h2 {
+    margin-left: -24px;
+}
+
+.textarea div.ol:before {
+    content: attr(data-count) ".";
+}
+.pull-right {
+  float: right;
+}
+button.pull-right {
+  margin-left: 10px;
+}
+.bubble {
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.6);
+}
+.bubble button {
+  display: none;
+}
+.bubble.active {
+  background: #fff;
+}
+.bubble.active button.update, .bubble.active button.delete {
+  display: initial;
+}
+.bubble.active .textarea {
+  max-height: initial;
+  overflow-y: initial;
+  margin-bottom: 20px;
+}
+.bubble.new {
+  background: #fff;
+}
+.bubble.new button.new {
+  display: initial;
+}
+.bubble.new button {
+  display: none;
+}
+.bubble.new .textarea {
+  display: none;
+}
+.bubble.fresh {
+  background: #fff;
+}
+.bubble.fresh button.update, .bubble.fresh button.delete {
+  display: none;
+}
+.bubble.fresh button.save {
+  display: initial;
+}
