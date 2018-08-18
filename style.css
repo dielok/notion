@@ -95,7 +95,7 @@ button.pull-right {
 }
 .bubble.active button.update,
 .bubble.active button.delete,
-.bubble.active button.save {
+.bubble.active.fresh button.save {
   display: initial;
 }
 .bubble.active .textarea {
