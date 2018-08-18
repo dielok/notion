@@ -1,4 +1,4 @@
-# Notion Inuitive Notes
+# Notion Intuitive Notes
 
 An extremely inutitive to use, markdown note application to capture, organize and the grow everyday thoughts to huge innovation.
 
