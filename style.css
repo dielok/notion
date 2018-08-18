@@ -73,9 +73,11 @@ button.delete.confirm {
 .textarea .h2 {
     margin-left: -24px;
 }
-
-.textarea div.ol:before {
+.textarea .ol:before {
     content: attr(data-count) ".";
+}
+.textarea .ul {
+    margin-left: -16px;
 }
 .pull-right {
   float: right;

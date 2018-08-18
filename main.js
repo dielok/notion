@@ -105,7 +105,8 @@ function createBubble(note) {
         
         var tests = {
             h1: /^# .*/.test($line.text()),
-            h2: /^## .*/.test($line.text())
+            h2: /^## .*/.test($line.text()),
+            ul: /^- .*/.test($line.text())
         };
         
         $line.removeClass();
