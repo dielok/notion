@@ -115,6 +115,13 @@ function createBubble(note) {
             if (tests[tag] === true) $line.addClass(tag);
         }
         
+    })
+    
+    .on('paste', function (e) {
+        e.preventDefault();
+        var text = null;
+        text = (e.originalEvent || e).clipboardData.getData('text/plain');
+        document.execCommand("insertText", false, text);
     });
     
     if (note) {
