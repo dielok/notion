@@ -46,7 +46,8 @@ button.delete.confirm {
   color: white;
 }
 .textarea {
-  width: auto;
+  box-sizing: border-box;
+  width: 100%;
   padding: 0 20px;
   border: none;
   font-family: Monaco;
@@ -54,6 +55,7 @@ button.delete.confirm {
   resize: none;
   line-height: 1.5;
   display: inline-block;
+  min-height: 19.8px;
 }
 .textarea[contenteditable]:focus {
   outline: 0px solid transparent;
@@ -62,10 +64,6 @@ button.delete.confirm {
     font-size: 9.9pt;
     line-height: 1.7;
 }
-.textarea, .textarea div:first-child:last-child {
-    font-size: 16pt;
-}
-
 .textarea .h1, .textarea .h2 {
     font-weight: 600;
 }
@@ -95,7 +93,9 @@ button.pull-right {
 .bubble.active {
   background: #fff;
 }
-.bubble.active button.update, .bubble.active button.delete {
+.bubble.active button.update,
+.bubble.active button.delete,
+.bubble.active button.save {
   display: initial;
 }
 .bubble.active .textarea {
@@ -118,9 +118,8 @@ button.pull-right {
 .bubble.fresh {
   background: #fff;
 }
-.bubble.fresh button.update, .bubble.fresh button.delete {
+.bubble.fresh button.update,
+.bubble.fresh button.delete,
+.bubble.fresh button.delete {
   display: none;
-}
-.bubble.fresh button.save {
-  display: initial;
 }

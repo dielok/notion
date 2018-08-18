@@ -81,12 +81,6 @@ function createBubble(note) {
     var $textarea = $('.textarea', $bubble);
     
     $textarea
-    .on('blur', function() {
-        
-        $('.ipad-keyboard-hack').focus();
-        
-    })
-    
     .on('keyup', function(e) {
         
         var parent = null;
@@ -94,10 +88,14 @@ function createBubble(note) {
             parent = document.selection.createRange().parentElement();
         } else if (window.getSelection){
             var range = window.getSelection().getRangeAt(0);
+            console.log("range", range);
             parent = ( ! range.commonAncestorContainer.tagName) ? range.commonAncestorContainer.parentNode : range.commonAncestorContainer;
         }
         
+        
         var $line = $(parent);
+        
+        if ($line.hasClass("textarea")) return;
         
         if (e.keyCode === 13) {
             
@@ -220,6 +218,9 @@ $('.bubble.new button.new').on('click', function(event) {
     event.stopPropagation();
     
     var $bubble = createBubble().addClass("fresh");
+    
+    $('.bubble').removeClass("active");
+        $bubble.addClass("active");
     
     var $textarea = $bubble.find(".textarea").attr('contenteditable', 'true').focus();
     
