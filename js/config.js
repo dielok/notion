@@ -1,0 +1,1 @@
+var baseurl = "http://localhost/~kehrwasser/hmnd-api/public/";
