@@ -10,65 +10,112 @@ function generateUUID() { // Public Domain/MIT
     });
 }
 
+function postHmnd(url, data, success, dataType) {
+    
+    return $.ajax({
+        url: url,
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        data: data,
+        method: "post",
+        dataType: dataType,
+        success: success
+    });
+    
+}
+
+function getHmnd(url, data, success, error, dataType) {
+    
+    return $.ajax({
+        url: url,
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        data: data,
+        method: "get",
+        dataType: dataType,
+        success: success,
+        error: error
+    });
+    
+}
+
+function putHmnd(url, data, success, dataType) {
+    
+    return $.ajax({
+        url: url,
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        data: data,
+        method: "put",
+        dataType: dataType,
+        success: success
+    });
+    
+}
+
+function deleteHmnd(url, data, success, dataType) {
+    
+    return $.ajax({
+        url: url,
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        data: data,
+        method: "delete",
+        dataType: dataType,
+        success: success
+    });
+    
+}
+
 function Notes() {}
+
+Notes.token = null;
 
 Notes.create = function(note) {
     
-    $.ajax({
-        url: 'https://quiet-glade-6673.getsandbox.com/notes',
-        type: 'POST',
-        data: JSON.stringify(note),
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        async: false
-    });
+    var url = "https://www.humanoid.fivetwenty.de/rest/public/notes";
+    
+    var data = note;
+    data.token = this.token;
+    
+    postHmnd(url, data);
     
 };
 
-Notes.read = function(uuid, callback) {
+Notes.read = function(uuid, callback, errCallback) {
     
-    var url = 'https://quiet-glade-6673.getsandbox.com/notes';
+    console.log("this", this.token);
+    
+    var url = 'https://www.humanoid.fivetwenty.de/rest/public/notes';
     
     if (uuid) url = url + "/" + uuid;
     
-    $.ajax({
-        url: url,
-        type: 'GET',
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        async: false,
-        success: callback
-    });
+    var data = {
+        token: this.token
+    };
+    
+    getHmnd(url, data, callback, errCallback);
     
 };
 
 Notes.update = function(note) {
     
-    if ( ! note.uuid) return;
+    if ( ! note.note_id) return;
     
-    $.ajax({
-        url: 'https://quiet-glade-6673.getsandbox.com/notes/' + note.uuid,
-        type: 'PUT',
-        data: JSON.stringify(note),
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        async: false,
-        success: function(data) {
-            console.log("success", data);
-        }
-    });
+    var url = "https://www.humanoid.fivetwenty.de/rest/public/notes/" + note.note_id;
+    
+    var data = note;
+    data.token = this.token;
+    
+    putHmnd(url, data);
     
 };
 
 Notes.delete = function(uuid) {
     
-    $.ajax({
-        url: 'https://quiet-glade-6673.getsandbox.com/notes/' + uuid,
-        type: 'DELETE',
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        async: false
-    });
+    var url = 'https://www.humanoid.fivetwenty.de/rest/public/notes/' + uuid;
+    
+    var data = {
+        token: this.token
+    };
+    
+    deleteHmnd(url, data);
     
 };
 
@@ -137,7 +184,7 @@ function createBubble(note) {
         
         if ($button.hasClass('confirm')) {
             
-            Notes.delete($bubble.data("note").uuid);
+            Notes.delete($bubble.data("note").note_id);
             
             $bubble.remove();
             
@@ -169,6 +216,8 @@ function createBubble(note) {
         var note = $bubble.data("note");
         note.text = $textarea.html();
         
+        console.log("note", note);
+        
         Notes.update(note);
         
         console.log($bubble);
@@ -186,7 +235,11 @@ function createBubble(note) {
     
 }
 
+Notes.token = localStorage.getItem('token');
+
 Notes.read(undefined, function(data) {
+    
+    $('body').addClass('bubbles');
     
     var notes = data;
     
@@ -199,6 +252,12 @@ Notes.read(undefined, function(data) {
         }
         
     }
+    
+},
+function() {
+    
+    console.log("READ ERROR");
+    $('body').addClass('login');
     
 });
 
@@ -269,4 +328,42 @@ $(document).on('ready', function() {
     
 });
 
-
+$('form[name=signin]').on('submit', function() {
+    
+    var form = $(this);
+    
+    postHmnd(form.attr('action'), form.serialize(), function(data) {
+        
+        localStorage.setItem('token', data.token);
+        Notes.token = data.token;
+        
+        Notes.read(undefined, function(data) {
+            
+            console.log("data", data);
+            
+            var notes = data;
+            
+            if (notes) {
+                
+                for (var i = 0; i < notes.length; i++) {
+                    
+                    createBubble(notes[i]);
+                    
+                }
+                
+            }
+            
+            $('section.login').addClass('done');
+            $('body').addClass('bubbles');
+            
+        });
+        
+    }).done(function() {
+        
+        
+        
+    });
+    
+    return false;
+    
+});

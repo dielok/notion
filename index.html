@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
   <head>
     <meta charset="UTF-8">
@@ -18,21 +17,59 @@
 
   <body>
     
-    <div class="bubble new">
-        <input type="text" name="search" class="styled" placeholder="Search">
-        <button class="new pull-right">New</button>
-        <div class="textarea"><div><br></div></div>
-        <button class="update pull-right">Update</button>
-        <button class="save pull-right">Save</button>
-        <button class="delete pull-right">Delete</button>
-    </div>
+    <section class="login">
     
-    <div class="bubble search">
-        <h1>Results</h1>
-        <div class="result tag">[T] a-tag-with-the-desired-keyword</div>
-        <div class="result note">[N] A note with the desired headline</div>
-        <div class="result project">[P] A project with the desired title</div>
-    </div>
+        <div class="bubble-canvas">
+            
+            <div class="bubble account signin">
+            
+                <img src="https://ionicons.com/ionicons/svg/md-rocket.svg" alt="">
+                
+                <form action="https://www.humanoid.fivetwenty.de/rest/public/users/sessions/" name="signin">
+                    
+                    <input type="text" name="mail" placeholder="E-Mail">
+                    <input type="password" name="password" placeholder="Password">
+                    
+                    <div class="sign-up-buttons">
+                        <button type="submit" class="signin">Sign in</button>
+                        <button type="button" class="signup">Sign up</button>
+                    </div>
+                    
+                </form>
+                
+            </div>
+            
+            <!--
+            <div class="bubble account signup">
+                
+                signup
+                
+            </div>
+            -->
+            
+        </div>
+        
+    </section>
+    
+    <section class="bubbles">
+        
+        <div class="bubble new">
+            <input type="text" name="search" class="styled" placeholder="Search">
+            <button class="new pull-right">New</button>
+            <div class="textarea"><div><br></div></div>
+            <button class="update pull-right">Update</button>
+            <button class="save pull-right">Save</button>
+            <button class="delete pull-right">Delete</button>
+        </div>
+        
+        <div class="bubble search">
+            <h1>Results</h1>
+            <div class="result tag">[T] a-tag-with-the-desired-keyword</div>
+            <div class="result note">[N] A note with the desired headline</div>
+            <div class="result project">[P] A project with the desired title</div>
+        </div>
+        
+    </section>
     
     <div class="background"></div>
     

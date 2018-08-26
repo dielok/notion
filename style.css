@@ -1,7 +1,75 @@
-body {
-  padding: 20px;
-  font-family: Helvetica;
+html, body {
+    height: 100%;
 }
+body {
+    font-family: Helvetica;
+    margin: 0;
+    padding: 0;
+    overflow-y: scroll;
+}
+section.login {
+    display: none;
+    width: auto;
+    height: 100%;
+    transition: margin-top .5s;
+}
+section.login.done {
+    margin-top: -92%;
+}
+
+body.login section.login {
+    display: block;
+}
+
+.bubble.account {
+    margin-top: 20px !important;
+    background: white;
+    transform-style: preserve-3d;
+    transition: all .4s linear;
+}
+.bubble.account.signin {
+    position: absolute;
+    backface-visibility: hidden;
+}
+
+section.bubble-canvas.signup bubble.account {
+    transform: rotateY(180deg);
+}
+.bubble.signin img {
+    width: 30%;
+    margin: 2rem 35%;
+}
+.bubble.signin button {
+    display: initial;
+}
+.bubble.signin input {
+    border: none;
+    background: none;
+    border-bottom: 1px solid #ccc;
+    width: 90%;
+    margin: 1em 5%;
+    font-family: monaco;
+    font-size: 9.9pt
+}
+@media (min-width: 460px) {
+    .bubble.signin input {
+        width: 60%;
+        margin: 1em 20%;
+    }
+}
+.bubble.signin .sign-up-buttons {
+    width: 60%;
+    margin: 3rem 20% 1rem;
+    text-align: center;
+}
+body.bubbles section.bubbles {
+    display: block;
+}
+section.bubbles {
+    padding: 20px;
+    display: none;
+}
+
 .background {
     position: fixed;
     width: 100%;
@@ -14,6 +82,13 @@ body {
     background-position: center;
     background-size: cover;
 }
+.bubble-canvas {
+  margin: 0 auto;
+  width: 80%;
+  max-width: 400px;
+  min-width: 160px;
+  position: relative;
+}
 .bubble {
   background: #fff;
   border-radius: 4px;
@@ -23,6 +98,10 @@ body {
   width: 80%;
   max-width: 400px;
   min-width: 160px;
+}
+.bubble-canvas .bubble {
+  margin: 0;
+  width: initial;
 }
 button {
   background: #0084ff;
