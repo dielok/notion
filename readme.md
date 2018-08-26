@@ -1,6 +1,6 @@
 # Notion Intuitive Notes
 
-An extremely inutitive to use, markdown note application to capture, organize and the grow everyday thoughts to huge innovation.
+An extremely intuitive to use, markdown note application to capture, organize and the grow everyday thoughts to huge innovation.
 
 There is a running cloud copy of this project: https://www.fivetwenty.de/notion
 
