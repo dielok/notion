@@ -45,6 +45,14 @@ button.delete.confirm {
   background: red;
   color: white;
 }
+input.styled {
+  border: none;
+  padding: 7px 12px 7px 19px;
+  font-size: 9.9pt;
+  color: #555;
+  font-family: Monaco;
+  border-bottom: 1px solid #ccc;
+}
 .textarea {
   box-sizing: border-box;
   width: 100%;
@@ -89,10 +97,13 @@ button.pull-right {
   overflow: hidden;
   background: rgba(255, 255, 255, 0.6);
 }
+.bubble input[name=search] {
+  display: none;
+}
 .bubble button {
   display: none;
 }
-.bubble.active {
+.bubble.active, .bubble.search {
   background: #fff;
 }
 .bubble.active button.update,
@@ -114,6 +125,9 @@ button.pull-right {
 .bubble.new button {
   display: none;
 }
+.bubble.new input[name=search] {
+  display: initial;
+}
 .bubble.new .textarea {
   display: none;
 }
@@ -124,4 +138,21 @@ button.pull-right {
 .bubble.fresh button.delete,
 .bubble.fresh button.delete {
   display: none;
+}
+.bubble.search {
+  display: none;
+  font-family: Monaco;
+  font-size: 9.9pt;
+  line-height: 1.5;
+}
+.bubble.search.active {
+  display: block;
+}
+.bubble.search .result {
+  padding: 10px 20px 10px;
+  cursor: pointer;
+}
+.bubble.search h1 {
+  padding: 0 20px;
+  font-size: 10pt;
 }
