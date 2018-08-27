@@ -12,13 +12,25 @@ section.login {
     width: auto;
     height: 100%;
     transition: margin-top .5s;
+    transition: top .5s;
 }
 section.login.done {
-    margin-top: -92%;
+    top: -100%;
 }
 
 body.login section.login {
     display: block;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    box-sizing: border-box;
+}
+body.login section.bubbles {
+    display: block;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .bubble.account {
@@ -84,7 +96,7 @@ section.bubbles {
 }
 .bubble-canvas {
   margin: 0 auto;
-  width: 80%;
+  width: 800%;
   max-width: 400px;
   min-width: 160px;
   position: relative;
@@ -101,7 +113,7 @@ section.bubbles {
 }
 .bubble-canvas .bubble {
   margin: 0;
-  width: initial;
+  width: 100%;
 }
 button {
   background: #0084ff;
