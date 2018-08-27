@@ -119,10 +119,23 @@ Notes.delete = function(uuid) {
     
 };
 
+Notes.search = function(query, callback, errCallback) {
+    
+    var url = 'https://www.humanoid.fivetwenty.de/rest/public/notes';
+    
+    var data = {
+        q: query,
+        token: this.token
+    };
+    
+    getHmnd(url, data, callback, errCallback);
+    
+};
+
 function createBubble(note) {
     
     var $bubble = $('.bubble.new')
-        .clone().removeClass('new')
+        .clone().removeClass('new').addClass('note-' + note.note_id)
         .insertAfter('.bubble.search');
     
     var $textarea = $('.textarea', $bubble);
@@ -304,13 +317,42 @@ $('.bubble.new button.new').on('click', function(event) {
         
     });
     
-});
+}); 
 
 function toggleSearchResults() {
     
-    if ($(this).val().length) {
+    var query = $(this).val();
+    
+    if (query.length > 2) {
         
         $('.bubble.search').addClass('active');
+        
+        Notes.search(query, function(results) {
+            
+            var $search = $('.bubble.search');
+            
+            $('.result', $search).remove();
+            
+            for (let result of results) {
+                
+                var $result = $('<div class="result note">[N] ' + result.text.substring(0,140) + '...</div>').appendTo($search);
+                
+                console.log('.note-' + result.note_id);
+                
+                $result.on('click', function() {
+                    
+                    console.log("result element:", $('.note-' + result.note_id));
+                    
+                    $('html, body').animate({
+                        scrollTop: $('.note-' + result.note_id).offset().top
+                    }, 150);
+                    
+                });
+                
+            }
+            
+            
+        }, function() { console.log('error with search'); });
         
     } else {
         
