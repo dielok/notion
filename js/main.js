@@ -174,6 +174,23 @@ function createBubble(note) {
             if (tests[tag] === true) $line.addClass(tag);
         }
         
+        
+        var mainDiv = $textarea[0];
+        var startNode = endNode = mainDiv;
+        
+        console.log(startNode);
+        
+        var range = document.createRange();
+        range.setStart(startNode, 0); // 6 is the offset of "world" within "Hello world"
+        range.setEnd(endNode, 8); // 7 is the length of "this is"
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        
+        var $temp = $textarea.clone();
+        
+        console.log("html", $temp.text());
+        
     })
     
     .on('paste', function (e) {
