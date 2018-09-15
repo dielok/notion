@@ -135,7 +135,7 @@ Notes.search = function(query, callback, errCallback) {
 function createBubble(note) {
     
     var $bubble = $('.bubble.new')
-        .clone().removeClass('new').addClass('note-' + note.note_id)
+        .clone().removeClass('new')
         .insertAfter('.bubble.search');
     
     var $textarea = $('.textarea', $bubble);
@@ -151,7 +151,6 @@ function createBubble(note) {
             console.log("range", range);
             parent = ( ! range.commonAncestorContainer.tagName) ? range.commonAncestorContainer.parentNode : range.commonAncestorContainer;
         }
-        
         
         var $line = $(parent);
         
@@ -187,7 +186,7 @@ function createBubble(note) {
     if (note) {
         
         $textarea.html(note.text);
-        $bubble.data("note", note);
+        $bubble.data("note", note).addClass('note-' + note.note_id);
         
     }
     
