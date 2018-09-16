@@ -24,7 +24,6 @@ function updateDirty($bubble) {
     
     var $textarea = $('.textarea', $bubble);
     
-    // update dirty class
     if ($textarea.attr("data-current-hash")) {
         
         if ($textarea.attr("data-hash") != $textarea.attr("data-current-hash")) {
@@ -209,10 +208,7 @@ function createBubble(note) {
         
         // set current hash
         $textarea.attr("data-current-hash", $textarea.html().hashCode());
-        
         updateDirty($bubble);
-        
-        //TODO: do it on paste and on save as well
         
     })
     
@@ -224,7 +220,6 @@ function createBubble(note) {
         
         // set current hash
         $textarea.attr("data-current-hash", $textarea.html().hashCode());
-        
         updateDirty($bubble);
         
     });
