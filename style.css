@@ -236,6 +236,12 @@ button.pull-right {
 .bubble.fresh button.delete {
   display: none;
 }
+
+.textarea:not(.dirty) ~ .update {
+  opacity: .5;
+  cursor: default;
+}
+
 .bubble.search {
   display: none;
   font-family: Monaco;

@@ -9,6 +9,38 @@ function generateUUID() { // Public Domain/MIT
         return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
 }
+String.prototype.hashCode = function() {
+  var hash = 0, i, chr;
+  if (this.length === 0) return hash;
+  for (i = 0; i < this.length; i++) {
+    chr   = this.charCodeAt(i);
+    hash  = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+};
+
+function updateDirty($bubble) {
+    
+    var $textarea = $('.textarea', $bubble);
+    
+    // update dirty class
+    if ($textarea.attr("data-current-hash")) {
+        
+        if ($textarea.attr("data-hash") != $textarea.attr("data-current-hash")) {
+            
+            $textarea.addClass("dirty");
+            
+            return;
+            
+        }
+        
+    }
+    
+    $textarea.removeClass("dirty");
+    
+}
+
 
 function postHmnd(url, data, success, dataType) {
     
@@ -143,6 +175,7 @@ function createBubble(note) {
     $textarea
     .on('keyup', function(e) {
         
+        // parse markdown
         var parent = null;
         if (document.selection) {
             parent = document.selection.createRange().parentElement();
@@ -174,6 +207,13 @@ function createBubble(note) {
             if (tests[tag] === true) $line.addClass(tag);
         }
         
+        // set current hash
+        $textarea.attr("data-current-hash", $textarea.html().hashCode());
+        
+        updateDirty($bubble);
+        
+        //TODO: do it on paste and on save as well
+        
     })
     
     .on('paste', function (e) {
@@ -181,11 +221,21 @@ function createBubble(note) {
         var text = null;
         text = (e.originalEvent || e).clipboardData.getData('text/plain');
         document.execCommand("insertText", false, text);
+        
+        // set current hash
+        $textarea.attr("data-current-hash", $textarea.html().hashCode());
+        
+        updateDirty($bubble);
+        
     });
     
     if (note) {
         
-        $textarea.html(note.text);
+        $textarea.html(note.text)
+        
+        // set hash
+        .attr("data-hash", note.text.hashCode())
+        
         $bubble.data("note", note).addClass('note-' + note.note_id);
         
     }
@@ -221,18 +271,19 @@ function createBubble(note) {
         
     });
     
-    $(".update", $bubble).on('click', function(event) {
+    $bubble.on('click', '.textarea.dirty ~ .update', function(event) {
         
         event.stopPropagation();
         
         var note = $bubble.data("note");
         note.text = $textarea.html();
         
-        console.log("note", note);
+        $textarea.removeAttr("data-current-hash").attr("data-hash", note.text.hashCode());
+        updateDirty($bubble);
         
         Notes.update(note);
         
-        console.log($bubble);
+        console.log("bubble", $bubble);
         $bubble.removeClass("active");
         
         $textarea.blur().attr('contenteditable', 'false');
@@ -310,6 +361,9 @@ $('.bubble.new button.new').on('click', function(event) {
         };
         
         Notes.create(note);
+        
+        $textarea.removeAttr("data-current-hash").attr("data-hash", note.text.hashCode());
+        updateDirty($bubble);
         
         $bubble
             .data("note", note)
