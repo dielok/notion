@@ -289,6 +289,19 @@ function createBubble(note) {
         
     });
     
+    $bubble.on('click', '.reset', function() {
+        
+        Notes.read($bubble.data("note").note_id, function(data) {
+            
+            $textarea.html(data.text);
+            
+            $textarea.removeAttr("data-current-hash");
+            updateDirty($bubble);
+            
+        });
+        
+    });
+    
     return $bubble;
     
 }
