@@ -257,7 +257,7 @@ function createBubble(note) {
         
         event.stopPropagation();
         
-        $('.bubble').removeClass("active");
+        $('.bubble .textarea:not(.dirty)').parent('.bubble').removeClass("active");
         $bubble.addClass("active");
         
         $textarea
@@ -321,8 +321,6 @@ function() {
 
 $(window).on("touchstart click", function() {
     
-    $('.bubble:not(.search)').removeClass("active");
-    
     // close fresh bubble if empty
     var $fresh = $('.bubble.fresh');
     
@@ -332,7 +330,17 @@ $(window).on("touchstart click", function() {
         
     }
     
-    $('.textarea').blur().attr('contenteditable', 'false');
+    
+    var $textarea = $('.textarea');
+    
+    if ( ! $textarea.hasClass("dirty")) {
+        
+        $('.bubble:not(.search)').removeClass("active");
+        
+        $textarea.blur().attr('contenteditable', 'false');
+        
+    }
+    
     $('.delete.confirm').removeClass("confirm");
     
 });
