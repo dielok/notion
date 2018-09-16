@@ -287,6 +287,7 @@ $(window).on("touchstart click", function() {
     }
     
     $('.textarea').blur().attr('contenteditable', 'false');
+    $('.delete.confirm').removeClass("confirm");
     
 });
 
